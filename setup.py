@@ -9,5 +9,9 @@ setup(
     author='Wincent Balin',
     author_email='wincent.balin@gmail.com',
     description='Collection of utilities for Tesseract OCR training',
-    install_requires=['pytesseract', 'jiwer']
+    install_requires=['pytesseract', 'jiwer'],
+    entry_points={'console_scripts': [
+        'create_dictdata = pytesstrain.cli.create_dictdata:main',
+        'rewrap = pytesstrain.cli.rewrap:main'
+    ]}
 )
