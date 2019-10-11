@@ -16,5 +16,17 @@ setup(
     entry_points={'console_scripts': [
         'create_dictdata = pytesstrain.cli.create_dictdata:main',
         'rewrap = pytesstrain.cli.rewrap:main'
-    ]}
+    ]},
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha'
+        'Topic :: Text Processing',
+        'Environment :: Console',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7'
+    ]
 )
