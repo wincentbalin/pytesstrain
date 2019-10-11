@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='pytesstrain',
     version='0.1.0',
-    packages=['pytesstrain'],
+    packages=find_packages(),
     url='https://github.com/wincentbalin/pytesstrain',
     license='Apache License (2.0)',
     author='Wincent Balin',
