@@ -2,11 +2,13 @@
 This file is essentially a reimplementation of pytesseract, adjusted for text2image.
 """
 
+import os
 import sys
 import shlex
 import subprocess
+import tempfile
 
-from pytesseract.pytesseract import subprocess_args, timeout_manager, get_errors, TesseractError
+from pytesseract.pytesseract import subprocess_args, timeout_manager, get_errors, TesseractError, Image
 
 
 # CHANGE THIS IF TEXT2IMAGE IS NOT IN YOUR PATH, OR IS NAMED DIFFERENTLY
@@ -55,3 +57,16 @@ def run_text2image(input_filename,
     with timeout_manager(proc, timeout) as error_string:
         if proc.returncode:
             raise Text2imageError(proc.returncode, get_errors(error_string))
+
+
+def run_and_get_output(text,
+                       extension,
+                       nice=0,
+                       timeout=0):
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', suffix='.txt') as tf:
+        txtfn = tf.name
+        basefn, _ = os.path.splitext(txtfn)
+        imgfn = basefn + '.' + extension.lower()
+        boxfn = basefn + '.box'
+
+    return txtfn, imgfn, boxfn
