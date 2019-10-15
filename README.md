@@ -5,4 +5,7 @@ These utilities are also implemented as console scripts, hence they can be run f
 
 ## Packages
 
-The collection is split in several packages.
+The module is split in several packages. The package `pytesstrain.train` contains the workhorse function
+`run_text()`. The package `pytesstrain.cli` contains the tolls you might run at the command line. The package
+`pytesstrain.ambigs` contains function around `unicharambigs` file.
+
