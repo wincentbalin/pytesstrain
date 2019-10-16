@@ -8,7 +8,7 @@ import shlex
 import subprocess
 import tempfile
 
-from pytesseract.pytesseract import subprocess_args, timeout_manager, get_errors, TesseractError, Image
+from pytesseract.pytesseract import subprocess_args, timeout_manager, get_errors, TesseractError
 
 
 # CHANGE THIS IF TEXT2IMAGE IS NOT IN YOUR PATH, OR IS NAMED DIFFERENTLY
@@ -28,8 +28,9 @@ class Text2imageNotFoundError(EnvironmentError):
 
 def run_text2image(input_filename,
                    output_filename_base,
-                   extension,
-                   lang,
+                   fonts_dir,
+                   font,
+                   exposure,
                    config='',
                    nice=0,
                    timeout=0):
@@ -38,16 +39,11 @@ def run_text2image(input_filename,
     if not sys.platform.startswith('win32') and nice != 0:
         cmd_args += ('nice', '-n', str(nice))
 
-    cmd_args += (text2image_cmd, input_filename, output_filename_base)
-
-    if lang is not None:
-        cmd_args += ('-l', lang)
+    cmd_args += (text2image_cmd, '--text', input_filename, '--outputbase', output_filename_base)
+    cmd_args += ('--fonts_dir', fonts_dir, '--font', font, '--exposure', str(exposure))
 
     if config:
         cmd_args += shlex.split(config)
-
-    if extension and extension not in {'box', 'osd', 'tsv'}:
-        cmd_args.append(extension)
 
     try:
         proc = subprocess.Popen(cmd_args, **subprocess_args())
@@ -59,14 +55,19 @@ def run_text2image(input_filename,
             raise Text2imageError(proc.returncode, get_errors(error_string))
 
 
-def run_and_get_output(text,
-                       extension,
+def run_and_get_output(textlines,
+                       fonts_dir,
+                       font,
+                       exposure=0,
                        nice=0,
                        timeout=0):
-    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', suffix='.txt') as tf:
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', suffix='.txt', delete=False) as tf:
+        tf.writelines([line + '\n' for line in textlines])
         txtfn = tf.name
         basefn, _ = os.path.splitext(txtfn)
-        imgfn = basefn + '.' + extension.lower()
+        imgfn = basefn + '.tif'
         boxfn = basefn + '.box'
 
-    return txtfn, imgfn, boxfn
+    run_text2image(txtfn, basefn, fonts_dir, font, exposure, nice, timeout)
+
+    return basefn, txtfn, imgfn, boxfn
