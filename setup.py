@@ -18,7 +18,8 @@ setup(
     long_description_content_type='text/markdown',
     entry_points={'console_scripts': [
         'create_dictdata = pytesstrain.cli.create_dictdata:main',
-        'rewrap = pytesstrain.cli.rewrap:main'
+        'rewrap = pytesstrain.cli.rewrap:main',
+        'run_tests = pytesstrain.cli.run_tests:main'
     ]},
     classifiers=[
         'Development Status :: 2 - Pre-Alpha'
