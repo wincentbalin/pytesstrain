@@ -15,7 +15,7 @@ def main():
 
     for line in args.infile:
         for wrapped in textwrap.wrap(line, args.width):
-            args.outfile.write('{}\n'.format(wrapped))
+            args.outfile.write(wrapped + '\n')
 
 
 if __name__ == '__main__':
