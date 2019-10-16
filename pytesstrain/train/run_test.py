@@ -1,5 +1,5 @@
 """
-Here are all test runners.
+Single test runner.
 """
 
 import os
