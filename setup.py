@@ -10,7 +10,7 @@ setup(
     url='https://github.com/wincentbalin/pytesstrain',
     license='Apache License (2.0)',
     author='Wincent Balin',
-    author_email='wincent.balin@gmail.com',
+    author_email='wincent.balin+pytesstrain@gmail.com',
     description='Collection of utilities for Tesseract OCR training',
     install_requires=['pytesseract', 'jiwer'],
     keywords=['Tesseract', 'OCR', 'training'],
