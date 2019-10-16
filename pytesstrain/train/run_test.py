@@ -2,6 +2,8 @@
 Here are all test runners.
 """
 
+import textwrap
+
 from ..tesseract import run_and_get_output as run_tesseract
 from pytesseract.pytesseract import tesseract_cmd
 from ..text2image import run_and_get_output as run_text2image
@@ -9,5 +11,5 @@ from ..text2image.pytext2image import text2image_cmd
 from ..utils import ChDir
 
 
-def run_test():
+def run_test(lang: str, ref: str, len: int, fonts_dir: str, font: str, exposure: int):
     pass
