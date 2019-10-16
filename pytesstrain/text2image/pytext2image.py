@@ -55,14 +55,14 @@ def run_text2image(input_filename,
             raise Text2imageError(proc.returncode, get_errors(error_string))
 
 
-def run_and_get_output(textlines,
+def run_and_get_output(text_lines,
                        fonts_dir,
                        font,
                        exposure=0,
                        nice=0,
                        timeout=0):
     with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', suffix='.txt', delete=False) as tf:
-        tf.writelines([line + '\n' for line in textlines])
+        tf.writelines([line + '\n' for line in text_lines])
         txtfn = tf.name
         basefn, _ = os.path.splitext(txtfn)
         imgfn = basefn + '.tif'
