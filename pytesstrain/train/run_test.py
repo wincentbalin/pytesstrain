@@ -2,14 +2,18 @@
 Here are all test runners.
 """
 
+import os
 import textwrap
 
 from ..tesseract import run_and_get_output as run_tesseract
-from pytesseract.pytesseract import tesseract_cmd
 from ..text2image import run_and_get_output as run_text2image
-from ..text2image.pytext2image import text2image_cmd
-from ..utils import ChDir
 
 
-def run_test(lang: str, ref: str, len: int, fonts_dir: str, font: str, exposure: int):
-    pass
+def run_test(lang: str, ref: str, wrap: int, fonts_dir: str, font: str, exposure: int):
+    # Create test image
+    basefn, txtfn, imgfn, boxfn = run_text2image(textwrap.wrap(ref, wrap), fonts_dir, font, exposure)
+    os.remove(txtfn)
+    os.remove(boxfn)
+    # OCR test image
+    hyp = run_tesseract(imgfn, 'TIF', lang)
+    return ref, hyp, font, exposure
