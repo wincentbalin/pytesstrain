@@ -37,7 +37,6 @@ def dump_ambiguity_properties(ap: dict, fn: str):
 def is_mandatory(err: str, words: list) -> bool:
     """
     This function checks whether a word containing the error string exists.
-
     :param err: error string
     :param words: list of words
     :return: whether the correction can be specified as mandatory
@@ -55,7 +54,6 @@ def extract_ambiguities(ref: str, hyp: str) -> list:
     in both reference and hypothesis are processed. Then the code tries to find boundaries of error string,
     as it subtracts common prefix and suffix of words. If length of both error and correction is > 7, it will not
     be loaded by Tesseract OCR (search for MAX_AMBIG_SIZE constant in Tesseract source code).
-
     :param ref: reference string
     :param hyp: hypothesis string
     :return: list of tuples, where each tuple contains error and correction
