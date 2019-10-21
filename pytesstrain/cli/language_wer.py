@@ -5,11 +5,9 @@ import sys
 import logging
 import argparse
 
-from itertools import product
-
 from jiwer import wer
 
-from pytesstrain.train import run_test
+from pytesstrain.train import run_tests
 from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence
 
 
@@ -42,10 +40,16 @@ def main():
         logging.info('Iteration #{}'.format(iteration))
         ref = create_word_sequence(wordlist, 10)
         logging.info('REF: ' + ref)
-        for font, exposure in product(fonts, exposures):
-            _, hyp, _, _ = run_test(args.language, ref, args.wrap, args.fonts_dir, font, exposure, config=config)
-            logging.info('HYP: ' + hyp)
-            logging.info('WER: {} (font: {}, exposure: {})'.format(wer(ref, hyp), font, exposure))
+        results = run_tests(args.language, ref, args.wrap, args.fonts_dir, fonts, exposures, config)
+        hypl = [hyp for _, hyp, _, _ in results]
+        refl = [ref] * len(hypl)
+        logging.info('WER: {}'.format(wer(refl, hypl)))
+    """
+    for font, exposure in product(fonts, exposures):
+        _, hyp, _, _ = run_test(args.language, ref, args.wrap, args.fonts_dir, font, exposure, config=config)
+        logging.info('HYP: ' + hyp)
+        logging.info('WER: {} (font: {}, exposure: {})'.format(wer(ref, hyp), font, exposure))
+        """
 
 
 if __name__ == '__main__':
