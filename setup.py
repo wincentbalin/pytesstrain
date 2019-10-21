@@ -19,7 +19,7 @@ setup(
     entry_points={'console_scripts': [
         'create_dictdata = pytesstrain.cli.create_dictdata:main',
         'rewrap = pytesstrain.cli.rewrap:main',
-        'language_tests = pytesstrain.cli.language_tests:main'
+        'language_wer = pytesstrain.cli.language_wer:main'
     ]},
     classifiers=[
         'Development Status :: 2 - Pre-Alpha'
