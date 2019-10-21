@@ -19,7 +19,8 @@ setup(
     entry_points={'console_scripts': [
         'create_dictdata = pytesstrain.cli.create_dictdata:main',
         'rewrap = pytesstrain.cli.rewrap:main',
-        'language_wer = pytesstrain.cli.language_wer:main'
+        'language_wer = pytesstrain.cli.language_wer:main',
+        'collect_ambiguities = pytesstrain.cli.collect_ambiguities:main'
     ]},
     classifiers=[
         'Development Status :: 2 - Pre-Alpha'
