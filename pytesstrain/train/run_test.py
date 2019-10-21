@@ -16,4 +16,5 @@ def run_test(lang: str, ref: str, wrap: int, fonts_dir: str, font: str, exposure
     os.remove(boxfn)
     # OCR test image
     hyp = run_tesseract(imgfn, 'txt', lang, config=config)
+    os.remove(imgfn)
     return ref, hyp, font, exposure
