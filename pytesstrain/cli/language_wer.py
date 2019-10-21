@@ -44,12 +44,6 @@ def main():
         hypl = [hyp for _, hyp, _, _ in results]
         refl = [ref] * len(hypl)
         logging.info('WER: {}'.format(wer(refl, hypl)))
-    """
-    for font, exposure in product(fonts, exposures):
-        _, hyp, _, _ = run_test(args.language, ref, args.wrap, args.fonts_dir, font, exposure, config=config)
-        logging.info('HYP: ' + hyp)
-        logging.info('WER: {} (font: {}, exposure: {})'.format(wer(ref, hyp), font, exposure))
-        """
 
 
 if __name__ == '__main__':
