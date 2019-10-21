@@ -124,3 +124,8 @@ dmypy.json
 
 # PyCharm directory
 .idea/
+
+# Fonts and Tesseract files
+*.ttf
+*.traineddata
+*.wordlist
