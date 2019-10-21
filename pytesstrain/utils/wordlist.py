@@ -1,4 +1,7 @@
-def load_wordlist(fn: str) -> list:
+from typing import List
+
+
+def load_wordlist(fn: str) -> List[str]:
     """
     Read specified wordlist.
     :param fn: Wordlist filename
