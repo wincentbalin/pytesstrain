@@ -6,9 +6,6 @@ import json
 from collections import defaultdict
 
 
-MAX_AMBIGUITIES_LENGTH = 10 - 1 - 2  # MAX_AMBIG_SIZE (see below) - len(mandatory flag) - len(spaces inbetween)
-
-
 class AmbiguityProperties:
     def __init__(self, mandatory: bool):
         self.mandatory = mandatory
@@ -75,6 +72,5 @@ def extract_ambiguities(ref: str, hyp: str) -> list:
                     error = error[:-1]
                     correction = correction[:-1]
                 # Store results
-                if len(error) + len(correction) <= MAX_AMBIGUITIES_LENGTH:
-                    ambiguities.append((error, correction))
+                ambiguities.append((error, correction))
     return ambiguities
