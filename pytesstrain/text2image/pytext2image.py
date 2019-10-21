@@ -40,7 +40,9 @@ def run_text2image(input_filename,
         cmd_args += ('nice', '-n', str(nice))
 
     cmd_args += (text2image_cmd, '--text', input_filename, '--outputbase', output_filename_base)
-    cmd_args += ('--fonts_dir', fonts_dir, '--font', font, '--exposure', str(exposure))
+    if fonts_dir:
+        cmd_args += ('--fonts_dir', fonts_dir)
+    cmd_args += ('--font', font, '--exposure', str(exposure))
 
     if config:
         cmd_args += shlex.split(config)
