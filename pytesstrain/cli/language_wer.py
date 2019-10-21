@@ -41,9 +41,9 @@ def main():
         ref = create_word_sequence(wordlist, 10)
         logging.info('REF: ' + ref)
         results = run_tests(args.language, ref, args.wrap, args.fonts_dir, fonts, exposures, config)
-        hypl = [hyp for _, hyp, _, _ in results]
-        refl = [ref] * len(hypl)
-        logging.info('WER: {}'.format(wer(refl, hypl)))
+        hyp_list = [hyp for _, hyp, _, _ in results]
+        ref_list = [ref] * len(hyp_list)
+        logging.info('WER: {}'.format(wer(ref_list, hyp_list)))
 
 
 if __name__ == '__main__':
