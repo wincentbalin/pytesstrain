@@ -20,7 +20,8 @@ setup(
         'create_dictdata = pytesstrain.cli.create_dictdata:main',
         'rewrap = pytesstrain.cli.rewrap:main',
         'language_wer = pytesstrain.cli.language_wer:main',
-        'collect_ambiguities = pytesstrain.cli.collect_ambiguities:main'
+        'collect_ambiguities = pytesstrain.cli.collect_ambiguities:main',
+        'json2unicharambigs = pytesstrain.cli.json2unicharambigs:main'
     ]},
     classifiers=[
         'Development Status :: 2 - Pre-Alpha'
