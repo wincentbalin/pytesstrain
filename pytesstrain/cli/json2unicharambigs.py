@@ -41,7 +41,7 @@ def main():
         mandatory = entries['mandatory']
         if args.mandatory_only and not mandatory:
             continue
-        if len(entries['distribution']) <= args.min_entries:
+        if len(entries['distribution']) < args.min_entries:
             continue
         ambiguities.append((err, corr, '1' if mandatory else '0'))
 
