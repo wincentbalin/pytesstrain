@@ -46,7 +46,7 @@ def main():
         ref = create_word_sequence(wordlist, 10)
         results = run_tests(args.language, ref, args.wrap, args.fonts_dir, fonts, exposures, config)
         for _, hyp, font, exposure in results:
-            for amb in ambigs.extract_ambiguities(ref, hyp):
+            for amb in ambigs.extract(ref, hyp):
                 if amb not in ambiguities:
                     amb_err, _ = amb
                     mandatory = ambigs.is_mandatory(amb_err, wordlist)
@@ -55,7 +55,7 @@ def main():
                 hist_key = '{}:{}'.format(font, exposure)
                 ambiguities[amb].add(hist_key)
         if iteration == args.iterations or iteration % SAVEPOINT == 0:
-            ambigs.dump_ambiguity_properties(ambiguities, args.output)
+            ambigs.dump_properties(ambiguities, args.output)
 
 
 if __name__ == '__main__':
