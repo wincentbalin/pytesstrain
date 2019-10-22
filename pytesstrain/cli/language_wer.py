@@ -46,7 +46,7 @@ def main():
         hyp_list = [hyp for _, hyp, _, _ in results]
         ref_list = [ref] * len(hyp_list)
         value = wer(ref_list, hyp_list)
-        wer_list.push(value)
+        wer_list.append(value)
         logging.info('WER: {}'.format(value))
     logging.info('Median WER: {}'.format(statistics.median(wer_list)))
 
