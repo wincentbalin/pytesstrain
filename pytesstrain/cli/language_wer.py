@@ -4,6 +4,7 @@
 import sys
 import logging
 import argparse
+import statistics
 
 from jiwer import wer
 
@@ -36,6 +37,7 @@ def main():
     # Look at https://github.com/jrnl-org/jrnl/issues/348#issuecomment-98616332 , the solution is there
     config = '--tessdata-dir ' + args.tessdata_dir.replace('\\', '/') if args.tessdata_dir else ''
 
+    wer_list = []
     for iteration in range(1, args.iterations+1):
         logging.info('Iteration #{}'.format(iteration))
         ref = create_word_sequence(wordlist, 10)
@@ -43,7 +45,10 @@ def main():
         results = run_tests(args.language, ref, args.wrap, args.fonts_dir, fonts, exposures, config)
         hyp_list = [hyp for _, hyp, _, _ in results]
         ref_list = [ref] * len(hyp_list)
-        logging.info('WER: {}'.format(wer(ref_list, hyp_list)))
+        value = wer(ref_list, hyp_list)
+        wer_list.push(value)
+        logging.info('WER: {}'.format(value))
+    logging.info('Median WER: {}'.format(statistics.median(wer_list)))
 
 
 if __name__ == '__main__':
