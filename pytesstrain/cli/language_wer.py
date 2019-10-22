@@ -6,16 +6,8 @@ import logging
 import argparse
 import statistics
 
-from jiwer import wer
-from editdistance import distance
-
 from pytesstrain.train import run_tests
-from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence
-
-
-def cer(ref: str, hyp: str) -> float:
-    """As in https://github.com/finos/greenkey-asrtoolkit/blob/master/asrtoolkit/wer.py"""
-    return distance(ref, hyp) / len(ref)
+from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence, wer, cer
 
 
 def main():
