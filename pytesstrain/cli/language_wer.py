@@ -6,8 +6,9 @@ import logging
 import argparse
 import statistics
 
+from pytesstrain.metrics import cer, wer
 from pytesstrain.train import run_tests
-from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence, wer, cer
+from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence
 
 
 def main():
