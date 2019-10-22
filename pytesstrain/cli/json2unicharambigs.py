@@ -32,8 +32,7 @@ def main():
     ambiguities = []
     for prop in collected:
         key = prop[0]
-        err = key[0]
-        corr = key[1]
+        err, corr = key[0], key[1]
         if args.mode == 'verysafe' and not check_verysafe(err, corr):
             continue
         elif args.mode == 'safe' and not check_safe(err, corr):
