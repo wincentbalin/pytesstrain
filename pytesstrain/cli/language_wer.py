@@ -7,9 +7,15 @@ import argparse
 import statistics
 
 from jiwer import wer
+from editdistance import distance
 
 from pytesstrain.train import run_tests
 from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence
+
+
+def cer(ref: str, hyp: str) -> float:
+    """As in https://github.com/finos/greenkey-asrtoolkit/blob/master/asrtoolkit/wer.py"""
+    return distance(ref, hyp) / len(ref)
 
 
 def main():
@@ -37,13 +43,16 @@ def main():
     # Look at https://github.com/jrnl-org/jrnl/issues/348#issuecomment-98616332 , the solution is there
     config = '--tessdata-dir ' + args.tessdata_dir.replace('\\', '/') if args.tessdata_dir else ''
 
+    cer_list = []
     wer_list = []
     for iteration in range(1, args.iterations+1):
         logging.info('Iteration #{}'.format(iteration))
         ref = create_word_sequence(wordlist, 10)
         results = run_tests(args.language, ref, args.wrap, args.fonts_dir, fonts, exposures, config)
         for _, hyp, _, _ in results:
+            cer_list.append(cer(ref, hyp))
             wer_list.append(wer(ref, hyp))
+    logging.info('Median CER: {}'.format(statistics.median(cer_list)))
     logging.info('Median WER: {}'.format(statistics.median(wer_list)))
 
 
