@@ -49,7 +49,7 @@ def main():
         print('No ambiguities match provided parameters', file=sys.stderr)
         sys.exit(1)
 
-    with open(args.unicharambigs, 'w', encoding='utf-8') as uf:
+    with open(args.unicharambigs, 'w', encoding='utf-8', newline='\n') as uf:
         print('v2', file=uf)
         for ambiguity in ambiguities:
             print('{} {} {}'.format(*ambiguity), file=uf)
