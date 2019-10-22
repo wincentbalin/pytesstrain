@@ -41,13 +41,9 @@ def main():
     for iteration in range(1, args.iterations+1):
         logging.info('Iteration #{}'.format(iteration))
         ref = create_word_sequence(wordlist, 10)
-        logging.info('REF: ' + ref)
         results = run_tests(args.language, ref, args.wrap, args.fonts_dir, fonts, exposures, config)
-        hyp_list = [hyp for _, hyp, _, _ in results]
-        ref_list = [ref] * len(hyp_list)
-        value = wer(ref_list, hyp_list)
-        wer_list.append(value)
-        logging.info('WER: {}'.format(value))
+        for _, hyp, _, _ in results:
+            wer_list.append(wer(ref, hyp))
     logging.info('Median WER: {}'.format(statistics.median(wer_list)))
 
 
