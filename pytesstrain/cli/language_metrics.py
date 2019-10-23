@@ -23,6 +23,7 @@ def main():
     parser.add_argument('-f', '--fonts', help='Fonts separated by comma', required=True)
     parser.add_argument('-e', '--exposures', help='Exposures separated by comma', default='0')
     parser.add_argument('-m', '--metrics', help='Metrics (error rates)', default='wer,cer')
+    parser.add_argument('-s', '--words', help='Words in test sentence', type=int, default=10)
     args = parser.parse_args()
 
     logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', level=logging.INFO)
@@ -42,7 +43,7 @@ def main():
 
     for iteration in range(1, args.iterations+1):
         logging.info('Iteration #{}'.format(iteration))
-        ref = create_word_sequence(wordlist, 10)
+        ref = create_word_sequence(wordlist, args.words)
         results = run_tests(args.language, ref, args.wrap, args.fonts_dir, fonts, exposures, config)
         for _, hyp, _, _ in results:
             metrics.add_pair(ref, hyp)
