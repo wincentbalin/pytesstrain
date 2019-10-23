@@ -7,16 +7,15 @@ import sys
 import json
 import argparse
 
-MAX_LENGTH_VERYSAFE = 10 - len(' ') - len(' 1')
-MAX_LENGTH_SAFE = 10
+MAX_LENGTH_SAFE = 10 - len(' ') - len(' 1')
 
 
 def check_safe(err: str, corr: str) -> bool:
-    return len(err) <= MAX_LENGTH_SAFE and len(corr) <= MAX_LENGTH_SAFE
+    return len(err) + len(corr) <= MAX_LENGTH_SAFE
 
 
 def check_verysafe(err: str, corr: str) -> bool:
-    return len(err) + len(corr) <= MAX_LENGTH_VERYSAFE
+    return len(err) <= 3 and len(corr) <= 3
 
 
 def main():
