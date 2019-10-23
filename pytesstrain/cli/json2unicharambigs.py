@@ -10,17 +10,17 @@ import argparse
 MAX_LENGTH_SAFE = 10 - len(' ') - len(' 1')
 
 
-def check_safe(err: str, corr: str) -> bool:
+def check_standard(err: str, corr: str) -> bool:
     return len(err) + len(corr) <= MAX_LENGTH_SAFE
 
 
-def check_verysafe(err: str, corr: str) -> bool:
+def check_safe(err: str, corr: str) -> bool:
     return len(err) <= 3 and len(corr) <= 3
 
 
 def main():
     parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-m', '--mode', choices=['safe', 'verysafe'], help='Length checking mode', default='verysafe')
+    parser.add_argument('-m', '--mode', choices=['standard', 'safe'], help='Length checking mode', default='safe')
     parser.add_argument('-e', '--min_entries', type=int, help='Minimal amount of entries in distribution', default=0)
     parser.add_argument('-o', '--mandatory_only', action='store_true', help='Store only mandatory ambiguities')
     parser.add_argument('json', type=argparse.FileType('r', encoding='utf-8'), help='JSON file with collected ambiguities')
@@ -32,9 +32,9 @@ def main():
     for prop in collected:
         key = prop[0]
         err, corr = key[0], key[1]
-        if args.mode == 'verysafe' and not check_verysafe(err, corr):
+        if args.mode == 'safe' and not check_safe(err, corr):
             continue
-        elif args.mode == 'safe' and not check_safe(err, corr):
+        elif args.mode == 'standard' and not check_standard(err, corr):
             continue
         entries = prop[1]
         mandatory = entries['mandatory']
