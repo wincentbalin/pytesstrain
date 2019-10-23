@@ -2,7 +2,7 @@ from collections import defaultdict
 from statistics import median
 from typing import Dict, List, Union
 
-from jiwer import wer
+from .wer import wer
 from .cer import cer
 
 

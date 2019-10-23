@@ -12,7 +12,7 @@ setup(
     author='Wincent Balin',
     author_email='wincent.balin+pytesstrain@gmail.com',
     description='Collection of utilities for Tesseract OCR training',
-    install_requires=['pytesseract', 'jiwer', 'editdistance'],
+    install_requires=['pytesseract', 'editdistance'],
     keywords=['Tesseract', 'OCR', 'training'],
     long_description=long_description,
     long_description_content_type='text/markdown',
