@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Run WER tests for specified language"""
+"""Run metrics for specified language"""
 
 import sys
 import logging
 import argparse
-import statistics
 
-from pytesstrain.metrics import cer, wer
+from pytesstrain.metrics import Metrics
 from pytesstrain.train import run_tests
 from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence
 
 
 def main():
-    parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__)
+    parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__,
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-l', '--language', help='Language to test', required=True)
     parser.add_argument('-w', '--wordlist', help='Wordlist file', required=True)
     parser.add_argument('-i', '--iterations', type=int, help='Iterations to run', default=100)
@@ -22,6 +22,7 @@ def main():
     parser.add_argument('-d', '--fonts_dir', help='Directory with fonts')
     parser.add_argument('-f', '--fonts', help='Fonts separated by comma', required=True)
     parser.add_argument('-e', '--exposures', help='Exposures separated by comma', default='0')
+    parser.add_argument('-m', '--metrics', help='Metrics (error rates)', default='wer,cer')
     args = parser.parse_args()
 
     logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', level=logging.INFO)
@@ -36,17 +37,17 @@ def main():
     # Look at https://github.com/jrnl-org/jrnl/issues/348#issuecomment-98616332 , the solution is there
     config = '--tessdata-dir ' + args.tessdata_dir.replace('\\', '/') if args.tessdata_dir else ''
 
-    cer_list = []
-    wer_list = []
+    metrics = Metrics()
+    metrics.activate(args.metrics.split(','))
+
     for iteration in range(1, args.iterations+1):
         logging.info('Iteration #{}'.format(iteration))
         ref = create_word_sequence(wordlist, 10)
         results = run_tests(args.language, ref, args.wrap, args.fonts_dir, fonts, exposures, config)
         for _, hyp, _, _ in results:
-            cer_list.append(cer(ref, hyp))
-            wer_list.append(wer(ref, hyp))
-    logging.info('Median CER: {}'.format(statistics.median(cer_list)))
-    logging.info('Median WER: {}'.format(statistics.median(wer_list)))
+            metrics.add_pair(ref, hyp)
+    for item in metrics.get_results().items():
+        logging.info('{}: {}'.format(*item))
 
 
 if __name__ == '__main__':
