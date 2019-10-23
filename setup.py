@@ -19,7 +19,7 @@ setup(
     entry_points={'console_scripts': [
         'create_dictdata = pytesstrain.cli.create_dictdata:main',
         'rewrap = pytesstrain.cli.rewrap:main',
-        'language_wer = pytesstrain.cli.language_wer:main',
+        'language_metrics = pytesstrain.cli.language_metrics:main',
         'collect_ambiguities = pytesstrain.cli.collect_ambiguities:main',
         'json2unicharambigs = pytesstrain.cli.json2unicharambigs:main'
     ]},
