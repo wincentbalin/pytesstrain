@@ -24,7 +24,7 @@ setup(
         'json2unicharambigs = pytesstrain.cli.json2unicharambigs:main'
     ]},
     classifiers=[
-        'Development Status :: 3 - Alpha'
+        'Development Status :: 3 - Alpha',
         'Topic :: Text Processing',
         'Environment :: Console',
         'License :: OSI Approved :: Apache Software License',
