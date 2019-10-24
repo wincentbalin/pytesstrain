@@ -16,4 +16,5 @@ The module is split in several packages. The package `pytesstrain.train` contain
 `run_text()`. The package `pytesstrain.cli` contains the tolls you might run at the command line. The package
 `pytesstrain.ambigs` contains function around `unicharambigs` file. The package `pytesstrain.text2image` contains
 the interface to the `text2image` command from the Tesseract OCR; the interface relies on `pytesseract` module
-and is modelled after it as well.
+and is modelled after it as well. The package `pytesstrain.metrics` contains error rate calculations, as well
+the interface class `Metrics`. The package `pytesstrain.utils` has auxiliary functions.
