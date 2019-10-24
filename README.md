@@ -8,7 +8,7 @@ These utilities are also implemented as console scripts, hence they can be run f
 This module requires the following modules to work:
 
 * pytesseract (Running Tesseract OCR)
-* jiwer (Word Error Rate calculation)
+* editdistance (Calculation of error rates)
 
 ## Packages
 
