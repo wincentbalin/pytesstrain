@@ -94,7 +94,7 @@ def main():
     od = Path(args.directory)
     of = od / args.language
     enc = 'utf-8'
-    copy2(args.input, of.with_suffix('.training_text'))
+    copy2(args.input, str(of.with_suffix('.training_text')))
     of.with_suffix('.wordlist').write_text(one_column(wordlist_data(word_count)), encoding=enc)
     of.with_suffix('.word.bigrams').write_text(two_columns(bigram_list_data(word_bigram_count)), encoding=enc)
     of.with_suffix('.training_text.bigram_freqs').write_text(two_columns(sorted_items(bigram_count)), encoding=enc)
