@@ -67,7 +67,7 @@ def two_columns(l: list) -> str:
     :param l: List of tuples of strings
     :return: String separated by newlines
     """
-    return '\n'.join([' '.join(t) for t in l])
+    return '\n'.join([' '.join(map(str, t)) for t in l])
 
 
 def main():
