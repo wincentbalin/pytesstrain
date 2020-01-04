@@ -45,8 +45,7 @@ def main():
         ambiguities.append((err, corr, '1' if mandatory else '0'))
 
     if len(ambiguities) == 0:
-        print('No ambiguities match provided parameters', file=sys.stderr)
-        sys.exit(1)
+        sys.exit('No ambiguities match provided parameters')
 
     with open(args.unicharambigs, 'w', encoding='utf-8', newline='\n') as uf:
         print('v2', file=uf)
