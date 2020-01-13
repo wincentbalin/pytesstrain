@@ -18,6 +18,7 @@ setup(
     long_description_content_type='text/markdown',
     entry_points={'console_scripts': [
         'create_dictdata = pytesstrain.cli.create_dictdata:main',
+        'create_ground_truth = pytesstrain.cli.create_ground_truth:main',
         'rewrap = pytesstrain.cli.rewrap:main',
         'language_metrics = pytesstrain.cli.language_metrics:main',
         'collect_ambiguities = pytesstrain.cli.collect_ambiguities:main',
