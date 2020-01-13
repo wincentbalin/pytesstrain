@@ -14,6 +14,8 @@ RE_LINE_ENDING = re.compile('\r?\n')
 
 def generate_gt_txt(source: Path, gt_dir: Path):
     for line_number, line in enumerate(RE_LINE_ENDING.split(source.read_text(encoding='utf8')), 1):
+        if not line:  # Get rid of empty lines
+            continue
         gt_txt = gt_dir / '{}.{:06d}.gt.txt'.format(source.stem, line_number)
         gt_txt.write_text(line.rstrip() + '\n', encoding='utf-8')
 
