@@ -79,6 +79,16 @@ collect_ambiguities -l lang -w lang.wordlist --fonts Arial,Courier -o ambigs.jso
 json2unicharambigs --mode safe --mandatory_only ambigs.json lang.unicharambigs
 ```
 
+### Creating ground truth files
+
+The tool `create_ground_truth` creates single-line ground truth files from either an input file
+or a directory with `.txt` files (tool searches the latter ones recursively).
+
+To create ground truth files from a directory `corpora` in the directory `ground-truth`, run
+```bash
+create_ground_truth corpora ground-truth
+```
+
 ## API Reference
 
 The main workhorse is the function `pytesstrain.train.run_test`. There is also a parallel version,
