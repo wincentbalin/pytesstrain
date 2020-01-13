@@ -81,8 +81,8 @@ json2unicharambigs --mode safe --mandatory_only ambigs.json lang.unicharambigs
 
 ### Creating ground truth files
 
-The tool `create_ground_truth` creates single-line ground truth files from either an input file
-or a directory with `.txt` files (tool searches the latter ones recursively).
+To help with training og Tesseract>=4, the tool `create_ground_truth` creates single-line ground truth files
+either from an input file or from a directory with `.txt` files (the tool searches the latter ones recursively).
 
 To create ground truth files from a directory `corpora` in the directory `ground-truth`, run
 ```bash
