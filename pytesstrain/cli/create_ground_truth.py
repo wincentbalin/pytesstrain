@@ -31,8 +31,8 @@ def generate_gt_txt(source: Path, gt_dir: Path, fonts: List[Tuple]) -> List[Tupl
     return gt_txt_and_font
 
 
-def generate_image(gt_txt: Path, gt_dir: Path, fonts_dir: Path, font: str, width: int):
-    outputbase = gt_dir / gt_txt.with_suffix('').with_suffix('')  # Remove .gt.txt
+def generate_image(gt_txt: Path, fonts_dir: Path, font: str, width: int):
+    outputbase = gt_txt.with_suffix('').with_suffix('')  # Remove .gt.txt
     logging.debug('Generating {}'.format(outputbase.name))
     config = '--strip_unrenderable_words --xsize {} --ysize 300 --leading 32 --margin 12'.format(width)
     run_text2image(str(gt_txt), str(outputbase), str(fonts_dir), font, exposure=0, config=config)
@@ -69,7 +69,7 @@ def main():
 
     logging.info('Generating .tif files')
     with ThreadPoolExecutor(max_workers=None) as executor:
-        futures = [executor.submit(generate_image, gt_txt, gt_dir, fonts_dir, font, image_width)
+        futures = [executor.submit(generate_image, gt_txt, fonts_dir, font, image_width)
                    for gt_txt, font in gt_txt_and_font]
     executor.shutdown(wait=True)
     logging.info('Done')
