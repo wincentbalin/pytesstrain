@@ -36,6 +36,8 @@ def generate_image(gt_txt: Path, fonts_dir: Path, font: str, width: int):
     logging.debug('Generating {}'.format(outputbase.name))
     config = '--strip_unrenderable_words --xsize {} --ysize 300 --leading 32 --margin 12'.format(width)
     run_text2image(str(gt_txt), str(outputbase), str(fonts_dir), font, exposure=0, config=config)
+    if not outputbase.with_suffix(outputbase.suffix + '.tif').exists():  # Ensure that only renderable .gt.txt exist
+        gt_txt.unlink()
     outputbase.with_suffix(outputbase.suffix + '.box').unlink()
 
 
