@@ -86,7 +86,7 @@ either from an input file or from a directory with `.txt` files (the tool search
 
 To create ground truth files from a directory `corpora` in the directory `ground-truth`, run
 ```bash
-create_ground_truth corpora ground-truth
+create_ground_truth --fonts Arial,Courier corpora ground-truth
 ```
 
 ## API Reference
