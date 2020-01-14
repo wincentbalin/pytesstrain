@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='pytesstrain',
-    version='0.1.8',
+    version='0.1.9',
     packages=find_packages(),
     url='https://github.com/wincentbalin/pytesstrain',
     license='Apache License (2.0)',
