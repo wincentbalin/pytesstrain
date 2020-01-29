@@ -71,8 +71,8 @@ def main():
 
     logging.info('Generating .tif files')
     with ThreadPoolExecutor(max_workers=None) as executor:
-        futures = [executor.submit(generate_image, gt_txt, fonts_dir, font, image_width)
-                   for gt_txt, font in gt_txt_and_font]
+        for gt_txt, font in gt_txt_and_font:
+            executor.submit(generate_image, gt_txt, fonts_dir, font, image_width)
     executor.shutdown(wait=True)
     logging.info('Done')
 
