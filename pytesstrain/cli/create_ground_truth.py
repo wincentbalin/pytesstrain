@@ -18,7 +18,7 @@ RE_LINE_ENDING = re.compile('\r?\n')
 
 
 def generate_gt_txt(source: Path, gt_dir: Path, fonts: List[Tuple]) -> List[Tuple]:
-    logging.info('Processing {}'.format(source))
+    logging.debug('Processing {}'.format(source))
     gt_txt_and_font = []
     for line_number, line in enumerate(RE_LINE_ENDING.split(source.read_text(encoding='utf8')), 1):
         tidy_line = line.rstrip()
@@ -26,6 +26,8 @@ def generate_gt_txt(source: Path, gt_dir: Path, fonts: List[Tuple]) -> List[Tupl
             continue
         for font, font_safe in fonts:
             gt_txt = gt_dir / '{}.{:06d}.{}.exp{}.gt.txt'.format(source.stem, line_number, font_safe, 0)
+            if gt_txt.exists():
+                logging.warning('Overwriting existing file: {}'.format(gt_txt))
             gt_txt.write_text(tidy_line + '\n', encoding='utf-8')
             gt_txt_and_font.append((gt_txt, font))
     return gt_txt_and_font
@@ -37,6 +39,7 @@ def generate_image(gt_txt: Path, fonts_dir: Path, font: str, width: int):
     config = '--strip_unrenderable_words --xsize {} --ysize 300 --leading 32 --margin 12'.format(width)
     run_text2image(str(gt_txt), str(outputbase), str(fonts_dir), font, exposure=0, config=config)
     if not outputbase.with_suffix(outputbase.suffix + '.tif').exists():  # Ensure that only renderable .gt.txt exist
+        logging.warning('File {} is unrenderable! Removing it...')
         gt_txt.unlink()
     outputbase.with_suffix(outputbase.suffix + '.box').unlink()
 
@@ -62,6 +65,7 @@ def main():
     source = Path(args.source)
     gt_dir = Path(args.gt_dir)
 
+    logging.info('Processing .txt files')
     gt_txt_and_font = []
     if source.is_dir():
         for path in source.rglob('*.txt'):
