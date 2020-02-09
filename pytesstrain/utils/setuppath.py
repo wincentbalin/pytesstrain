@@ -1,3 +1,7 @@
+"""
+Setup paths to Tesseract OCR commands.
+"""
+
 import os
 import shutil
 
