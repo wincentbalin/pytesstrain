@@ -81,8 +81,8 @@ json2unicharambigs --mode safe --mandatory_only ambigs.json lang.unicharambigs
 
 ### Creating ground truth files
 
-To help with training og Tesseract>=4, the tool `create_ground_truth` creates single-line ground truth files
-either from an input file or from a directory with `.txt` files (the tool searches the latter ones recursively).
+To help with training of Tesseract>=4, the tool `create_ground_truth` creates single-line ground truth files
+either from an input file or from a directory with `.txt` files (the tool searches for the latter ones recursively).
 
 To create ground truth files from a directory `corpora` in the directory `ground-truth`, run
 ```bash
@@ -99,7 +99,7 @@ function starts processes itself and is thus I/O-bound).
 The subpackage `tesseract` simply imports the package `pytesseract`. The subpackage `text2image` imitates
 the former one, but for the `text2image` tool instead of `tesseract`.
 
-The subpackage `metrics` contains implementation of metrics, such as CER and WER. The subpackage `utils` has
+The subpackage `metrics` contains implementation of evaluation metrics, such as CER and WER. The subpackage `utils` has
 often-used, miscellaneous functions and the subpackage `ambigs` contains ambiguity processing functions.
 
 Finally, the subpackage `cli` contains the console scripts.
