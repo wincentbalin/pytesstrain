@@ -10,6 +10,7 @@ import argparse
 from pathlib import Path
 from typing import List, Tuple
 from concurrent.futures import ThreadPoolExecutor
+from multiprocessing import cpu_count
 
 from pytesstrain.text2image import run_text2image
 from pytesstrain.utils import setup_tesseract_path
@@ -74,7 +75,7 @@ def main():
         gt_txt_and_font += generate_gt_txt(source, gt_dir, fonts)
 
     logging.info('Generating .tif files')
-    with ThreadPoolExecutor(max_workers=None) as executor:
+    with ThreadPoolExecutor(max_workers=cpu_count()) as executor:
         for gt_txt, font in gt_txt_and_font:
             executor.submit(generate_image, gt_txt, fonts_dir, font, image_width)
     executor.shutdown(wait=True)
