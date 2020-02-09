@@ -7,7 +7,7 @@ import argparse
 
 import pytesstrain.ambigs as ambigs
 from pytesstrain.train import run_tests
-from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence
+from pytesstrain.utils import setup_tesseract_path, load_wordlist, create_word_sequence, default_fonts_dir
 
 
 SAVEPOINT = 1000  # Save every nth iteration
@@ -21,7 +21,7 @@ def main():
     parser.add_argument('-p', '--path', help='Directory with Tesseract binaries')
     parser.add_argument('-a', '--wrap', help='Wrap line by amount of characters', type=int, default=70)
     parser.add_argument('-t', '--tessdata_dir', help='Tessdata directory')
-    parser.add_argument('-d', '--fonts_dir', help='Directory with fonts')
+    parser.add_argument('-d', '--fonts_dir', help='Directory with fonts', default=default_fonts_dir())
     parser.add_argument('-f', '--fonts', help='Fonts separated by comma', required=True)
     parser.add_argument('-e', '--exposures', help='Exposures separated by comma', default='0')
     parser.add_argument('-o', '--output', help='Output JSON file name', required=True)

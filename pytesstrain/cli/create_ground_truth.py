@@ -13,7 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 from multiprocessing import cpu_count
 
 from pytesstrain.text2image import run_text2image
-from pytesstrain.utils import setup_tesseract_path
+from pytesstrain.utils import setup_tesseract_path, default_fonts_dir
 
 RE_LINE_ENDING = re.compile('\r?\n')
 
@@ -48,7 +48,7 @@ def generate_image(gt_txt: Path, fonts_dir: Path, font: str, width: int):
 def main():
     parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__)
     parser.add_argument('-p', '--path', help='Directory with Tesseract binaries')
-    parser.add_argument('-d', '--fonts_dir', help='Directory with fonts')
+    parser.add_argument('-d', '--fonts_dir', help='Directory with fonts', default=default_fonts_dir())
     parser.add_argument('-f', '--fonts', help='Fonts separated by comma', required=True)
     parser.add_argument('-w', '--width', help='Width of ground truth images', type=int, default=3600)
     parser.add_argument('source', help='Source file or directory with .txt files')
