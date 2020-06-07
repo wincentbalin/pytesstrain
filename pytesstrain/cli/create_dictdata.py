@@ -98,8 +98,7 @@ def main():
         bigram_count.update(bigrams)
         unigrams_count.update(unigrams)
 
-    od = Path(args.directory)
-    of = od / args.language
+    of = Path(args.directory) / args.language
     enc = 'utf-8'
     copy2(args.input, str(of.with_suffix('.training_text')))
     of.with_suffix('.wordlist').write_text(one_column(wordlist_data(word_count)), encoding=enc)
