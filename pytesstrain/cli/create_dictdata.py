@@ -5,6 +5,8 @@ Create langdata directory from a corpus file.
 
 import argparse
 import sys
+import re
+import string
 
 from collections import Counter
 from itertools import chain
@@ -13,6 +15,7 @@ from pathlib import Path
 from shutil import copy2
 from typing import List, Tuple, AnyStr
 
+RE_PUNCTUATION = re.compile(r'[{}]'.format(string.punctuation))
 
 def sorted_items(c: Counter) -> List[Tuple[AnyStr, int]]:
     """
@@ -76,12 +79,15 @@ def main():
     parser.add_argument('-d', '--directory', help='Output langdata directory')
     parser.add_argument('-i', '--input', help='Corpus file')
     parser.add_argument('-l', '--language', help='Language of the corpus (ISO 639-3)')
+    parser.add_argument('--retain-punctuation', help='Do not remove punctuation in wordlists', action='store_true')
     args = parser.parse_args()
 
     word_count, word_bigram_count, bigram_count, unigrams_count = Counter(), Counter(), Counter(), Counter()
     with open(args.input, encoding='utf-8') as f:
         lines = f.readlines()
     for line in lines:
+        if not args.retain_punctuation:
+            line = RE_PUNCTUATION.sub(' ', line)
         words = line.split()
         word_bigrams = [(words[i], words[i+1]) for i in range(len(words)-1)]
         bigrams = [word[i] + word[i+1] for word in words for i in range(len(word)-1) if len(word) > 1]
