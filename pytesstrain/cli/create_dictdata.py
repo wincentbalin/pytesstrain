@@ -17,6 +17,7 @@ from typing import List, Tuple, AnyStr
 
 RE_PUNCTUATION = re.compile(r'[{}]'.format(string.punctuation))
 
+
 def sorted_items(c: Counter) -> List[Tuple[AnyStr, int]]:
     """
     Sort list of items in Counter by their count, descending.
