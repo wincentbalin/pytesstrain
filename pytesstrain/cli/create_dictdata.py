@@ -11,9 +11,10 @@ from itertools import chain
 from operator import itemgetter
 from pathlib import Path
 from shutil import copy2
+from typing import List, Tuple, AnyStr
 
 
-def sorted_items(c: Counter) -> list:
+def sorted_items(c: Counter) -> List[Tuple[AnyStr, int]]:
     """
     Sort list of items in Counter by their count, descending.
     :param c: Counter with items counted
@@ -22,7 +23,7 @@ def sorted_items(c: Counter) -> list:
     return sorted(c.items(), key=itemgetter(1), reverse=True)
 
 
-def wordlist_data(c: Counter) -> list:
+def wordlist_data(c: Counter) -> List[AnyStr]:
     """
     Extract items from counter to a list.
     :param c: Counter with items
@@ -31,14 +32,14 @@ def wordlist_data(c: Counter) -> list:
     return [word for word, _ in sorted_items(c)]
 
 
-def freq_wordlist_data(c: Counter, threshold=0.95) -> list:
-    nthr = int(float(sum(c.values())) * threshold)
-    n = 0
+def freq_wordlist_data(c: Counter, threshold=0.95) -> List[Tuple[AnyStr, int]]:
+    threshold_amount = int(sum(c.values()) * threshold)
+    amount = 0
     freq_wordlist = []
     for item in sorted_items(c):
         freq_wordlist.append(item)
-        n += item[1]
-        if n > nthr:
+        amount += item[1]
+        if amount > threshold_amount:
             break
     return freq_wordlist
 
@@ -52,22 +53,22 @@ def bigram_list_data(c: Counter) -> list:
     return [item for item, _ in sorted_items(c)]
 
 
-def one_column(l: list) -> str:
+def one_column(ls: List[AnyStr]) -> str:
     """
     Join single list entries to a string.
-    :param l: List of strings
+    :param ls: List of strings
     :return: String separated by newlines
     """
-    return '\n'.join(l)
+    return '\n'.join(ls)
 
 
-def two_columns(l: list) -> str:
+def two_columns(pairs: List[Tuple]) -> str:
     """
     Join pairs (or more) of strings to a string.
-    :param l: List of tuples of strings
+    :param pairs: List of tuples of strings
     :return: String separated by newlines
     """
-    return '\n'.join([' '.join(map(str, t)) for t in l])
+    return '\n'.join([' '.join(map(str, t)) for t in pairs])
 
 
 def main():
