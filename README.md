@@ -15,7 +15,7 @@ and `editdistance` (used for calculation of error rates).
 
 ## Getting started
 
-> _Attention_: If `text2image` cannot find specified fonts at all, while they are installed correctly, add the default font directory
+> _Attention_: If `text2image` cannot find specified fonts at all, while they are installed correctly, add the default fonts directory
 > to the command line (for example, `--fonts_dir /usr/share/fonts` in Ubuntu). 
 
 This package contains tools for specific problems:
