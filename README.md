@@ -15,6 +15,9 @@ and `editdistance` (used for calculation of error rates).
 
 ## Getting started
 
+> _Attention_: If `text2image` cannot find specified fonts at all, while they are installed correctly, add the default font directory
+> to the command line (for example, `--fonts_dir /usr/share/fonts` in Ubuntu). 
+
 This package contains tools for specific problems:
 
 ### text2image is crashing ([issue #1781 @ Tesseract OCR](https://github.com/tesseract-ocr/tesseract/issues/1781))
